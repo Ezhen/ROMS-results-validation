@@ -1,0 +1,46 @@
+"""
+# ROMS #	# amp #							# u,v #
+m2s=zeros((len(lat[-1,:]))); mp2s=zeros((len(lat[-1,:]))); m2us=zeros((len(lat[-1,:]))); m2vs=zeros((len(lat[-1,:]))); mp2us=zeros((len(lat[-1,:]))); mp2vs=zeros((len(lat[-1,:])));
+m2n=zeros((len(lat[0,:]))); mp2n=zeros((len(lat[0,:]))); m2un=zeros((len(lat[0,:]))); m2vn=zeros((len(lat[0,:]))); mp2un=zeros((len(lat[0,:]))); mp2vn=zeros((len(lat[0,:])));
+m2w=zeros((len(lat[:,-1]))); mp2w=zeros((len(lat[:,-1]))); m2uw=zeros((len(lat[:,-1]))); m2vw=zeros((len(lat[:,-1]))); mp2uw=zeros((len(lat[:,-1]))); mp2vw=zeros((len(lat[:,-1])));
+
+m2sMj=zeros((len(lat[-1,:]))); m2sMn=zeros((len(lat[-1,:]))); m2sIn=zeros((len(lat[-1,:]))); m2sPh=zeros((len(lat[-1,:])))
+m2nMj=zeros((len(lat[0,:]))); m2nMn=zeros((len(lat[0,:]))); m2nIn=zeros((len(lat[0,:]))); m2nPh=zeros((len(lat[0,:])))
+m2wMj=zeros((len(lat[:,-1]))); m2wMn=zeros((len(lat[:,-1]))); m2wIn=zeros((len(lat[:,-1]))); m2wPh=zeros((len(lat[:,-1])))
+
+print "WEST"
+for i in range(len(msk[:,-1])):
+	if msk[i,-1]==1:
+		az1,pz1,cz1,tidez1=dectide(rr.variables['zeta'][1:,i,-1],tt[:],'ROMS Amp'); m2w[i],mp2w[i]=az1[1],pz1[1]
+		az1,pz1,cz1,tidez1=dectide(rr.variables['u'][1:,0,i,-1],tt[:],'ROMS U'); m2uw[i],mp2uw[i]=az1[1],pz1[1]
+		az1,pz1,cz1,tidez1=dectide(rr.variables['v'][1:,0,i,-1],tt[:],'ROMS V'); m2vw[i],mp2vw[i]=az1[1],pz1[1]
+		m2wMj[i],m2wMn[i],m2wIn[i],m2wPh[i]=tidal_ellipse(m2uw[i],m2vw[i],mp2uw[i],mp2vw[i])
+		print i,m2w[i],mp2w[i],m2wMj[i],m2wMn[i],m2wIn[i],m2wPh[i] #m2uw[i],mp2uw[i],m2vw[i],mp2vw[i]
+	else:
+		m2w[i],mp2w[i],m2uw[i],mp2uw[i],m2vw[i],mp2vw[i]=nan,nan,nan,nan,nan,nan; 
+		m2wMj[i],m2wMn[i],m2wIn[i],m2wPh[i]=nan,nan,nan,nan; print i,m2w[i],mp2w[i],m2wMj[i],m2wMn[i],m2wIn[i],m2wPh[i]
+
+print "SOUTH"
+for i in range(len(msk[-1,:])):
+	if msk[-1,i]==1:
+		az1,pz1,cz1,tidez1=dectide(rr.variables['zeta'][1:,-1,i],tt[:],'ROMS'); m2s[i],mp2s[i]=az1[1],pz1[1]
+		az1,pz1,cz1,tidez1=dectide(rr.variables['u'][1:,0,-1,i],tt[:],'ROMS'); m2us[i],mp2us[i]=az1[1],pz1[1]
+		az1,pz1,cz1,tidez1=dectide(rr.variables['v'][1:,0,-1,i],tt[:],'ROMS'); m2vs[i],mp2vs[i]=az1[1],pz1[1]
+		m2sMj[i],m2sMn[i],m2sIn[i],m2sPh[i]=tidal_ellipse(m2us[i],m2vs[i],mp2us[i],mp2vs[i])
+		print i,m2s[i],mp2s[i],m2sMj[i],m2sMn[i],m2sIn[i],m2sPh[i] #m2us[i],mp2us[i],m2vs[i],mp2vs[i]
+	else:
+		m2s[i],mp2s[i],m2us[i],mp2us[i],m2vs[i],mp2vs[i]=nan,nan,nan,nan,nan,nan; #print i, m2s[i],mp2s[i],m2us[i],mp2us[i],m2vs[i],mp2vs[i]
+		m2sMj[i],m2sMn[i],m2sIn[i],m2sPh[i]=nan,nan,nan,nan; print i,m2s[i],mp2s[i],m2sMj[i],m2sMn[i],m2sIn[i],m2sPh[i]
+
+print "NORTH"
+for i in range(len(msk[0,:])):
+	if msk[0,i]==1:
+		az1,pz1,cz1,tidez1=dectide(rr.variables['zeta'][1:,0,i],tt[:],'ROMS'); m2n[i],mp2n[i]=az1[1],pz1[1]
+		az1,pz1,cz1,tidez1=dectide(rr.variables['u'][1:,0,0,i],tt[:],'ROMS'); m2un[i],mp2un[i]=az1[1],pz1[1]
+		az1,pz1,cz1,tidez1=dectide(rr.variables['v'][1:,0,0,i],tt[:],'ROMS'); m2vn[i],mp2vn[i]=az1[1],pz1[1],81,22)
+		m2nMj[i],m2nMn[i],m2nIn[i],m2nPh[i]=tidal_ellipse(m2un[i],m2vn[i],mp2un[i],mp2vn[i])
+		print i,m2n[i],mp2n[i],m2nMj[i],m2nMn[i],m2nIn[i],m2nPh[i] #m2un[i],mp2un[i],m2vn[i],mp2vn[i]
+	else:
+		m2n[i],mp2n[i],m2un[i],mp2un[i],m2vn[i],mp2vn[i]=nan,nan,nan,nan,nan,nan; #print i, m2n[i],mp2n[i],m2un[i],mp2un[i],m2vn[i],mp2vn[i]
+		m2nMj[i],m2nMn[i],m2nIn[i],m2nPh[i]=nan,nan,nan,nan;print i,m2n[i],mp2n[i],m2nMj[i],m2nMn[i],m2nIn[i],m2nPh[i]
+"""
