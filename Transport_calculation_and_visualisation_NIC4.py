@@ -136,13 +136,48 @@ def Noordwijk_calcul(x,y):
 	return vn
 
 
+def Figure_print(flag,grid,arr1,arr2,std,c1,c2,lab1,lab2):
+	""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+	""" This function plots comparison of dicharges      """
+	""" through chosen trans-sections 		     """
+	""" 					             """
+	""" 		Attributes 		             """
+	""" * flag - file name specification                 """
+	""" * grid - grid specification                      """
+	""" * arr1 - monthly discharges, first array         """
+	""" * arr2 - monthly discharges, second array        """
+	""" * std - variation of a first array, zero if no   """
+	""" * c1 - color of the first array                  """
+	""" * c2 - color of the second array                 """
+	""" * lab1 - legend for the firt array               """
+	""" * lab2 - legend for the second array             """
+	""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+	fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(12, 7))
+
+	index = np.arange(12)
+	bar_width = 0.35
+
+	opacity = 0.4; error_config = {'ecolor': '0.3'}
+
+	rects1 = ax.bar(index,arr1, bar_width, alpha=opacity, color=c1, yerr=std, error_kw=error_config, label=lab1)
+
+	rects2 = ax.bar(index + bar_width,arr2, bar_width, alpha=opacity, color=c2, error_kw=error_config, label=lab2)
+
+	ax.set_xlabel('Month'); ax.set_ylabel('Discharge [Sv]')#; plt.title('Comparison VLIZ and ROMS')
+	ax.set_xticks(index + bar_width )
+	ax.set_xticklabels(['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'])
+	ax.legend(loc=1)
+	fig.savefig('Transport/Transport_' + grid + '_' + flag  + '.png', dpi=200)
+
+
+
 if __name__ == '__main__':
 	#Choose one of those: path to the file and the corresponding name of the grid, leave the others commented
 	#path = '/scratch/ulg/mast/eivanov/NESTING10RESULTS/NSSNAVG_20062008.nc'; grid = 'NN'
-	path = '/scratch/ulg/mast/eivanov/NESTING10RESULTS/NSS_AVG_20062008_parent.nc'; grid = 'OW'
+	#path = '/scratch/ulg/mast/eivanov/NESTING10RESULTS/NSS_AVG_20062008_parent.nc'; grid = 'OW'
 	#path = '/scratch/ulg/mast/eivanov/NESTING10RESULTS/NSS_TW_AVG_20062008_parent.nc'; grid = 'TW'
 	#path = '/scratch/ulg/mast/eivanov/NESTING10RESULTS/NSS_AVG_20062008_child.nc'; grid = 'OWc'
-	#path = '/scratch/ulg/mast/eivanov/NESTING10RESULTS/NSS_TW_AVG_20062008_child.nc'; grid = 'TWc'
+	path = '/scratch/ulg/mast/eivanov/NESTING10RESULTS/NSS_TW_AVG_20062008_child.nc'; grid = 'TWc'
 
 	rr,dy,dx,h,c = NetCDF_read(path)
 
@@ -162,6 +197,12 @@ if __name__ == '__main__':
 
 	v_month = monthly(v)
 	print "Annual discharge:", int(sum(v)/365/3.), "Sv"
+	
+	Figure_print('Dover',grid,Ref_Dover_mean[0:-1],v_month,Ref_Dover_std[0:-1],'b','r','Dover: Obs','Dover: ROMS')
+	if grid == 'NN' or grid == 'OW' or grid == 'TW':
+		Figure_print('Noordwijk_Dover',grid,v_month,v_month_n,np.zeros((12)),'r','g','ROMS: Dover','ROMS: Noordwijk')
+
+
 
 
 
