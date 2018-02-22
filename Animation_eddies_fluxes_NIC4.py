@@ -84,8 +84,8 @@ if __name__ == '__main__':
 
 	#path = '/scratch/ulg/mast/eivanov/NESTING10RESULTS/NSSNNHIS_20062008.nc'; grid = 'NN'
 	#path = '/scratch/ulg/mast/eivanov/NESTING10RESULTS/NSS_HIS_20062008_parent.nc'; grid = 'OW'; prec = 1; scale = 12
-	#path = '/scratch/ulg/mast/eivanov/NESTING10RESULTS/NSS_TW_HIS_20062008_parent.nc'; grid = 'TW'; prec = 1; scale = 12
-	path = '/scratch/ulg/mast/eivanov/NESTING10RESULTS/NSS_HIS_20062008_child.nc'; grid = 'OWc'; prec = 2; scale = 20
+	path = '/scratch/ulg/mast/eivanov/NESTING10RESULTS/NSS_TW_HIS_20062008_parent.nc'; grid = 'TW'; prec = 1; scale = 12
+	#path = '/scratch/ulg/mast/eivanov/NESTING10RESULTS/NSS_HIS_20062008_child.nc'; grid = 'OWc'; prec = 2; scale = 20
 	#path = '/scratch/ulg/mast/eivanov/NESTING10RESULTS/NSS_TW_HIS_20062008_child.nc'; grid = 'TWc'; prec = 2; scale = 20
 
 	# Open the file #
