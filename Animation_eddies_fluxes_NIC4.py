@@ -13,10 +13,10 @@ sys.path.insert(0, '../cmocean')
 import cmocean.cm as cm
 
 d2 = lambda x: datetime.datetime(2006,1,1,0,0,0) + datetime.timedelta(seconds=x)
-cmap=cm.speed
+cmap=cm.delta
 
 
-def PRINT_PNG(u,v,w,time,grid):
+def PRINT_PNG(u,v,w,time,grid,prec,scale):
 	""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 	"""" The function plots velocity as a contour field and a quiver (vectors) """
 	"""" 									   """
@@ -28,7 +28,7 @@ def PRINT_PNG(u,v,w,time,grid):
 	"""" * grid - name of the grid to save an image				   """
 	""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 	m1.contourf(x1,y1,w,clevs,cmap=cmap)
-	kk = m1.quiver(x1[::prec,::prec],y1[::prec,::prec],u[::prec,::prec],v[::prec,::prec],color='black',scale=20,linewidth=w[::prec,::prec].flatten(),angles='xy',edgecolor='None') # color='#A52A2A'
+	kk = m1.quiver(x1[::prec,::prec],y1[::prec,::prec],u[::prec,::prec],v[::prec,::prec],color='black',scale=scale,linewidth=w[::prec,::prec].flatten(),angles='xy',edgecolor='None') # color='#A52A2A'
 	ann = ax.annotate('%s' %(d2(time).strftime("%d %B %Y %H:00")), xy=(0,0),  xycoords='axes points',xytext=(175,20), textcoords='axes points',fontsize=20,  bbox=dict(facecolor='none',  edgecolor='none', pad=5.0))
 	file_name = str(d2(time).strftime("%d_%B_%Y_%H")) +"_%s.png" %(grid);  fig.savefig("Eddy/%s" %(file_name), dpi=200); ann.remove(); kk.remove()
 
@@ -83,10 +83,10 @@ if __name__ == '__main__':
 	"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 	#path = '/scratch/ulg/mast/eivanov/NESTING10RESULTS/NSSNNHIS_20062008.nc'; grid = 'NN'
-	path = '/scratch/ulg/mast/eivanov/NESTING10RESULTS/NSS_HIS_20062008_parent.nc'; grid = 'OW'
-	#path = '/scratch/ulg/mast/eivanov/NESTING10RESULTS/NSS_TW_HIS_20062008_parent.nc'; grid = 'TW'
-	#path = '/scratch/ulg/mast/eivanov/NESTING10RESULTS/NSS_HIS_20062008_child.nc'; grid = 'OWc'
-	#path = '/scratch/ulg/mast/eivanov/NESTING10RESULTS/NSS_TW_HIS_20062008_child.nc'; grid = 'TWc'
+	#path = '/scratch/ulg/mast/eivanov/NESTING10RESULTS/NSS_HIS_20062008_parent.nc'; grid = 'OW'; prec = 1; scale = 12
+	#path = '/scratch/ulg/mast/eivanov/NESTING10RESULTS/NSS_TW_HIS_20062008_parent.nc'; grid = 'TW'; prec = 1; scale = 12
+	path = '/scratch/ulg/mast/eivanov/NESTING10RESULTS/NSS_HIS_20062008_child.nc'; grid = 'OWc'; prec = 2; scale = 20
+	#path = '/scratch/ulg/mast/eivanov/NESTING10RESULTS/NSS_TW_HIS_20062008_child.nc'; grid = 'TWc'; prec = 2; scale = 20
 
 	# Open the file #
 	n1 = Dataset(path, 'r', format='NETCDF4')
@@ -97,17 +97,15 @@ if __name__ == '__main__':
 	# x1,y1 = BUILD_GRID(2.35,3.25,51.15,51.45,51.5,0.25,lons_p,lats_p)
 
 	# Choose the colorbar to work with (colorbar minimum, colorbar maximum) #
-	var_min,var_max = 0.0,1.0 	# minimum and maximum variable magnitude
+	var_min,var_max = -1.0,1.0 	# minimum and maximum variable magnitude
 	clevs = COLORBAR(var_min,var_max)
 	
 	# Choose the time frame you would like to plot #
-	t1,t2 = 8112,8136	# corresponds to 5th of December, the entire day
-	prec = 1		# How often you would like to plot velocity vectors (each 1th, or each 2th, etc)
+	t1,t2 = 8115,8135	# corresponds to 5th of December, the entire day
 	for n in range(t1,t2):
 		u10,v10 = n1.variables['u_eastward'][n,-1,:,:],n1.variables['v_northward'][n,-1,:,:]
-		ww = (u10*u10+v10*v10)**0.5
+		#ww = (u10*u10+v10*v10)**0.5
+		ww = v10
 		# invoke the function which plots data on the map #
-		PRINT_PNG(u10,v10,ww,n1.variables['ocean_time'][n],grid)
+		PRINT_PNG(u10,v10,ww,n1.variables['ocean_time'][n],grid,prec,scale)
 		print d2(n1.variables['ocean_time'][n]).strftime("%d_%B_%Y_%H")
-		#tke = np.nanmean(n1.variables['tke'][n,-1,:,:])
-		#if tke > 2.5e-3:
