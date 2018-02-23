@@ -37,18 +37,23 @@ def plotfig(m,flag,path,grid_flag,profile):
 		lev = np.linspace(3,21,37)
 		label = 'Temperature [$^\circ$C]'
 		color = cm.thermal
-	else:
+	elif flag == 'salt':
 		lev = np.linspace(12,40,57)
 		label = 'Salinity [PSU]'
 		color = cm.haline
-
+	elif flag == 'rho':
+		lev = np.linspace(5,30,51)
+		label = 'Density anomaly [kg m-3]'
+		color = cm.dense
 	fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(12, 7))
 
 	plt.gca().patch.set_color('silver')
-	CS1 = plt.contourf(xi,yi,zi, levels = lev, cmap = cm.thermal)
+	CS1 = plt.contourf(xi,yi,zi, levels = lev, cmap = color)
 	if flag == 'temp':
 		CS2 = plt.contour(xi,yi,zi,linewidths = 0.5, levels = lev[::2], colors='k')
 	if flag == 'salt':
+		CS2 = plt.contour(xi,yi,zi,linewidths = 0.5, levels = lev[::2], colors='k')
+	if flag == 'rho':
 		CS2 = plt.contour(xi,yi,zi,linewidths = 0.5, levels = lev[::2], colors='k')
 	plt.clabel(CS2, inline=1, fmt='%1.1f', fontsize=10)
 	plt.colorbar(CS1, orientation='horizontal', label=label)
@@ -97,5 +102,6 @@ if __name__ == '__main__':
 		m = moment[i]
 		for j in range(len(path_all)):
 			# flag, choose one of those or both
-			plotfig(m,'temp',path_all[j],grid_flag_all[j],profile_all[j])
-			plotfig(m,'salt',path_all[j],grid_flag_all[j],profile_all[j])
+			#plotfig(m,'temp',path_all[j],grid_flag_all[j],profile_all[j])
+			#plotfig(m,'salt',path_all[j],grid_flag_all[j],profile_all[j])
+			plotfig(m,'rho',path_all[j],grid_flag_all[j],profile_all[j])
