@@ -1,12 +1,15 @@
 import numpy as np; import pyroms; from netCDF4 import Dataset; from mpl_toolkits.basemap import pyproj; from functions import point_inside_polygon
 from Grid_VALID import Grid_VALID
 
+#poly=[(51.006,2.426),(51.687,4.176),(52.750,3.073),(52.081,1.336)]
+#poly_parent=[(49.561,0.490),(51.707,5.956),(54.141,3.330),(52.083,-2.088)]
 poly=[(50.531,1.7312),(51.4691,3.7075),(52.5049,2.4314),(51.5905,0.4607)]
 poly_parent=[(48.5,-0.4),(51.9,6.7),(54.9,2.8),(51.7,-4.3)]
 
 def Get_grid_ODYSSEA_Nest(grdfile, name='ODYSSEA_NEST'):
     nc = Dataset(grdfile)
-    lon = nc.variables['lon'][:]; lat = nc.variables['lat'][:]; var = nc.variables['sst'][0,:,:]
+    #lon = nc.variables['lon'][81:148]; lat = nc.variables['lat'][34:75]; var = nc.variables['analysed_sst'][0,34:75,81:148]
+    lon = nc.variables['lon'][:]; lat = nc.variables['lat'][:]; var = nc.variables['analysed_sst'][0,:,:]
     nc.close()	
     lon,lat=np.meshgrid(lon,lat)
     lon_t = lon[:,:]
@@ -23,8 +26,8 @@ def Get_grid_ODYSSEA_Nest(grdfile, name='ODYSSEA_NEST'):
     #mask correction
     for i in range(len(var)):
         for j in range(len(var.T)):
-	    if point_inside_polygon(lat[i,j],lon[i,j],poly)==False:
-		mask_t[i,j]=0
+    	    if point_inside_polygon(lat[i,j],lon[i,j],poly)==False:
+    		mask_t[i,j]=0
     z_t = 1; h=1
     geod = pyproj.Geod(ellps='WGS84')
     az_forward, az_back, dx = geod.inv(lon_vert[:,:-1], lat_vert[:,:-1], lon_vert[:,1:], lat_vert[:,1:])
@@ -34,7 +37,8 @@ def Get_grid_ODYSSEA_Nest(grdfile, name='ODYSSEA_NEST'):
 
 def Get_grid_Mercator_Nest(grdfile, name='MERCATOR_NEST'):
     nc = Dataset(grdfile)
-    lon = nc.variables['lon'][44:74]; lat = nc.variables['lat'][31:62]; var = nc.variables['votemper'][0,0,31:62,44:74]#; depth = nc.variables['depth'][:]
+    #lon = nc.variables['lon'][52:78]; lat = nc.variables['lat'][39:65]; var = nc.variables['votemper'][0,0,39:65,52:78]#; depth = nc.variables['depth'][:]
+    lon = nc.variables['lon'][22:93]; lat = nc.variables['lat'][18:86]; var = nc.variables['votemper'][0,0,18:86,22:93]
     print np.shape(lon),np.shape(lat), np.shape(var)
     nc.close()	
     lon,lat=np.meshgrid(lon,lat)
@@ -52,8 +56,8 @@ def Get_grid_Mercator_Nest(grdfile, name='MERCATOR_NEST'):
     #mask correction
     for i in range(len(var)):
         for j in range(len(var.T)):
-	    if point_inside_polygon(lat[i,j],lon[i,j],poly)==False:
-		mask_t[i,j]=0
+    	    if point_inside_polygon(lat[i,j],lon[i,j],poly)==False:
+    		mask_t[i,j]=0
     #z_t = np.tile(depth,(mask_t.shape[2],mask_t.shape[1],1)).T
     #depth_bnds = np.zeros(len(depth)+1)
     #for i in range(1,len(depth)):
@@ -74,9 +78,10 @@ def Get_grid_Mercator_Nest(grdfile, name='MERCATOR_NEST'):
     angle = (90 - angle) * np.pi/180.
     return Grid_VALID(lon_t, lat_t, lon_vert, lat_vert, mask_t, z_t, h, angle, name)
 
+
 def Get_grid_ODYSSEA_Parent(grdfile, name='ODYSSEA_PARENT'):
     nc = Dataset(grdfile)
-    lon = nc.variables['lon'][:]; lat = nc.variables['lat'][:]; var = nc.variables['sst'][0,:,:]
+    lon = nc.variables['lon'][:]; lat = nc.variables['lat'][:]; var = nc.variables['analysed_sst'][0,:,:]
     nc.close()	
     lon,lat=np.meshgrid(lon,lat)
     lon_t = lon[:,:]
@@ -90,8 +95,9 @@ def Get_grid_ODYSSEA_Parent(grdfile, name='ODYSSEA_PARENT'):
     mask_t=a
     for i in range(len(var)):
         for j in range(len(var.T)):
-	    if point_inside_polygon(lat[i,j],lon[i,j],poly_parent)==False:
-		mask_t[i,j]=0
+    	    if point_inside_polygon(lat[i,j],lon[i,j],poly)==False:
+    	    #if point_inside_polygon(lat[i,j],lon[i,j],poly_parent)==False:
+    		mask_t[i,j]=0
     z_t = 1; h=1
     geod = pyproj.Geod(ellps='WGS84')
     az_forward, az_back, dx = geod.inv(lon_vert[:,:-1], lat_vert[:,:-1], lon_vert[:,1:], lat_vert[:,1:])
@@ -101,7 +107,8 @@ def Get_grid_ODYSSEA_Parent(grdfile, name='ODYSSEA_PARENT'):
 
 def Get_grid_Mercator_Parent(grdfile, name='MERCATOR_PARENT'):
     nc = Dataset(grdfile)
-    lon = nc.variables['lon'][44:74]; lat = nc.variables['lat'][31:62]; var = nc.variables['votemper'][0,0,31:62,44:74]#; depth = nc.variables['depth'][:]
+    lon = nc.variables['lon'][22:93]; lat = nc.variables['lat'][18:86]; var = nc.variables['votemper'][0,0,18:86,22:93]#; depth = nc.variables['depth'][:]
+    #lon = nc.variables['lon'][:]; lat = nc.variables['lat'][:]; var = nc.variables['votemper'][0,0,:,:]#; depth = nc.variables['depth'][:]
     print np.shape(lon),np.shape(lat), np.shape(var)
     nc.close()	
     lon,lat=np.meshgrid(lon,lat)
@@ -116,8 +123,9 @@ def Get_grid_Mercator_Parent(grdfile, name='MERCATOR_PARENT'):
     mask_t=a
     for i in range(len(var)):
         for j in range(len(var.T)):
-	    if point_inside_polygon(lat[i,j],lon[i,j],poly_parent)==False:
-		mask_t[i,j]=0
+    	    if point_inside_polygon(lat[i,j],lon[i,j],poly)==False:
+    	    #if point_inside_polygon(lat[i,j],lon[i,j],poly_parent)==False:
+    		mask_t[i,j]=0
     z_t = 1; h=1
     geod = pyproj.Geod(ellps='WGS84')
     az_forward, az_back, dx = geod.inv(lon_vert[:,:-1], lat_vert[:,:-1], lon_vert[:,1:], lat_vert[:,1:])

@@ -1,0 +1,67 @@
+
+
+ncks -v temp /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_parent.nc /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_parent_temp.nc
+ncks -v salt /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_parent.nc /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_parent_salt.nc
+ncks -v u_eastward /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_parent.nc /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_parent_u.nc
+ncks -v v_northward /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_parent.nc /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_parent_v.nc
+ncks -A /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_parent_temp.nc /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_parent_OW_bulk.nc
+ncks -A /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_parent_salt.nc /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_parent_OW_bulk.nc
+ncks -A /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_parent_u.nc /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_parent_OW_bulk.nc
+ncks -A /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_parent_v.nc /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_parent_OW_bulk.nc
+
+ncks -v temp /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_parent.nc /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_parent_temp.nc
+ncks -v salt /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_parent.nc /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_parent_salt.nc
+ncks -v u_eastward /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_parent.nc /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_parent_u.nc
+ncks -v v_northward /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_parent.nc /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_parent_v.nc
+ncks -A /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_parent_temp.nc /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_parent_TW_bulk.nc
+ncks -A /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_parent_salt.nc /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_parent_TW_bulk.nc
+ncks -A /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_parent_u.nc /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_parent_TW_bulk.nc
+ncks -A /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_parent_v.nc /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_parent_TW_bulk.nc
+
+ncks -v temp /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_child.nc /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_child_temp.nc
+ncks -v salt /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_child.nc /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_child_salt.nc
+ncks -v u_eastward /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_child.nc /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_child_u.nc
+ncks -v v_northward /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_child.nc /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_child_v.nc
+ncks -A /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_child_temp.nc /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_child_OWc_bulk.nc
+ncks -A /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_child_salt.nc /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_child_OWc_bulk.nc
+ncks -A /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_child_u.nc /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_child_OWc_bulk.nc
+ncks -A /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_child_v.nc /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_child_OWc_bulk.nc
+
+ncks -v temp /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_child.nc /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_child_temp.nc
+ncks -v salt /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_child.nc /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_child_salt.nc
+ncks -v u_eastward /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_child.nc /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_child_u.nc
+ncks -v v_northward /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_child.nc /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_child_v.nc
+ncks -A /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_child_temp.nc /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_child_TWc_bulk.nc
+ncks -A /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_child_salt.nc /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_child_TWc_bulk.nc
+ncks -A /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_child_u.nc /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_child_TWc_bulk.nc
+ncks -A /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_child_v.nc /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_child_TWc_bulk.nc
+
+
+ncea -d s_rho,0,0 /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_parent_OW_bulk.nc /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_parent_OW_bulk_bottom.nc
+ncea -d s_rho,14,14 /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_parent_OW_bulk.nc /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_parent_OW_bulk_surface.nc
+ncrename -h -O -v temp,sbt -v salt,sbs -v u_eastward,sbu -v v_northward,sbv /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_parent_OW_bulk_bottom.nc
+ncrename -h -O -v temp,sst -v salt,sss -v u_eastward,ssu -v v_northward,ssv /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_parent_OW_bulk_surface.nc
+ncks -A /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_parent_OW_bulk_bottom.nc /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_parent_OW_bulk_surface_bottom.nc
+ncks -A /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_parent_OW_bulk_surface.nc /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_parent_OW_bulk_surface_bottom.nc
+
+ncea -d s_rho,0,0 /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_parent_TW_bulk.nc /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_parent_TW_bulk_bottom.nc
+ncea -d s_rho,14,14 /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_parent_TW_bulk.nc /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_parent_TW_bulk_surface.nc
+ncrename -h -O -v temp,sbt -v salt,sbs -v u_eastward,sbu -v v_northward,sbv /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_parent_TW_bulk_bottom.nc
+ncrename -h -O -v temp,sst -v salt,sss -v u_eastward,ssu -v v_northward,ssv /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_parent_TW_bulk_surface.nc
+ncks -A /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_parent_TW_bulk_bottom.nc /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_parent_TW_bulk_surface_bottom.nc
+ncks -A /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_parent_TW_bulk_surface.nc /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_parent_TW_bulk_surface_bottom.nc
+
+ncea -d s_rho,0,0 /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_child_OWc_bulk.nc /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_child_OWc_bulk_bottom.nc
+ncea -d s_rho,14,14 /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_child_OWc_bulk.nc /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_child_OWc_bulk_surface.nc
+ncrename -h -O -v temp,sbt -v salt,sbs -v u_eastward,sbu -v v_northward,sbv /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_child_OWc_bulk_bottom.nc
+ncrename -h -O -v temp,sst -v salt,sss -v u_eastward,ssu -v v_northward,ssv /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_child_OWc_bulk_surface.nc
+ncks -A /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_child_OWc_bulk_bottom.nc /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_child_OWc_bulk_surface_bottom.nc
+ncks -A /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_child_OWc_bulk_surface.nc /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_OW_AVG_20062008_child_OWc_bulk_surface_bottom.nc
+
+ncea -d s_rho,0,0 /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_child_TWc_bulk.nc /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_child_TWc_bulk_bottom.nc
+ncea -d s_rho,14,14 /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_child_TWc_bulk.nc /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_child_TWc_bulk_surface.nc
+ncrename -h -O -v temp,sbt -v salt,sbs -v u_eastward,sbu -v v_northward,sbv /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_child_TWc_bulk_bottom.nc
+ncrename -h -O -v temp,sst -v salt,sss -v u_eastward,ssu -v v_northward,ssv /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_child_TWc_bulk_surface.nc
+ncks -A /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_child_TWc_bulk_bottom.nc /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_child_TWc_bulk_surface_bottom.nc
+ncks -A /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_child_TWc_bulk_surface.nc /scratch/ulg/mast/eivanov/Output_files_from_ROMS/NSS_TW_AVG_20062008_child_TWc_bulk_surface_bottom.nc
+

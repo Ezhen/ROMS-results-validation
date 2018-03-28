@@ -42,5 +42,5 @@ def plotfunc(olist,rlist,name,var,dop,temptype):
     fig.legend(dia.samplePoints,
                [ p.get_label() for p in dia.samplePoints ],
                numpoints=1, prop=dict(size='small'), loc='upper right', title=var)
-    fig.savefig('Image_'+var+'_'+temptype+'.png')
+    fig.savefig('/home/eivanov/coawst_data_prrocessing/Temporal/Spatial_vaidation_tracers/Image_'+var+'_'+temptype+'.png')
     #plt.show()

@@ -1,9 +1,10 @@
 from netCDF4 import Dataset;  import numpy as np; from functions import point_inside_polygon; from iter import *; import math
 
 def func(name,var):
-	rr = Dataset('/home/eivanov/coawst_data_prrocessing/VALIDATION/Replotting/%s_%s.nc' %(name,var),'r',format='NETCDF4')
+	rr = Dataset('/home/eivanov/coawst_data_prrocessing/Temporal/NS_Parent_New_N_15.nc','r',format='NETCDF4') #%s_%s.nc' %(name,var),'r',format='NETCDF4')
 	if name != 'OWc' and name != 'TWc':
-		nc = Dataset('/home/eivanov/coawst_data_prrocessing/VALIDATION/Replotting/Tides_parent.nc','r',format='NETCDF4')
+		#nc = Dataset('/home/eivanov/coawst_data_prrocessing/VALIDATION/Replotting/Tides_parent.nc','r',format='NETCDF4')
+		nc = Dataset('/home/eivanov/coawst_data_prrocessing/Temporal/Input_files_to_ROMS/Tides_Parent.nc','r',format='NETCDF4')
 	else:
 		nc = Dataset('/home/eivanov/coawst_data_prrocessing/VALIDATION/Replotting/Tide_nest.nc','r',format='NETCDF4')
 	msk = nc.variables['mask_rho'][:];lat=nc.variables['lat_rho'][:];lon=nc.variables['lon_rho'][:]
@@ -30,7 +31,8 @@ def func(name,var):
 		b = metrics(o,r,name,name+'_'+'M2')
 		print name, 'M2', 'bias', b[1], 'rms', b[2]
 
-nam=['NN','OW','OWc','TW','TWc']
-var = 'uv' # 'zeta', 'uv'
-for i in range(5):
+#nam=['NN','OW','OWc','TW','TWc']
+nam= ['NN']
+var = 'zeta' # 'zeta', 'uv'
+for i in range(2):
 	func(nam[i],var)

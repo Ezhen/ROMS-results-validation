@@ -14,13 +14,12 @@ vliz_phase_var_plot=list([np.mean([9.82,14.33,19.11]),np.mean([64.35,69.38,74.63
 vliz_variation_plot=list([max([1.626,1.638,1.62])-min([1.626,1.638,1.62]),max([0.465,0.465,0.458])-min([0.465,0.465,0.458]),max([0.275,0.275,0.271])-min([0.275,0.275,0.271])])
 
 def func(name):
-	nc = Dataset('Replotting/%s_zeta.nc' %(name), 'r', format='NETCDF4')
+	nc = Dataset('/home/eivanov/coawst_data_prrocessing/Temporal/Tides/%s_zeta_MPDATA.nc' %(name), 'r', format='NETCDF4')
 	lats = nc.variables['lat'][:]; lons = nc.variables['lon'][:]
 	aa=np.array((list(lons.flatten()), list(lats.flatten()))).T; 
 	idxx=spatial.KDTree(aa).query([MP0_lon,MP0_lat])[1]; idxx3=spatial.KDTree(aa).query([MP3_lon,MP3_lat])[1]; idxx4=spatial.KDTree(aa).query([MP4_lon,MP4_lat])[1]; 
 	k1=int(np.where(lons==aa[idxx][0])[0][0]); k2=int(np.where(lons==aa[idxx3][0])[0][0]); k3=int(np.where(lons==aa[idxx4][0])[0][0])
 	l1=int(np.where(lons==aa[idxx][0])[1][0]); l2=int(np.where(lons==aa[idxx3][0])[1][0]); l3=int(np.where(lons==aa[idxx4][0])[1][0])
-	nc = Dataset('Replotting/%s_zeta.nc' %(name), 'r', format='NETCDF4')
 	m2 = [nc.variables['M2'][k1,l1],nc.variables['M2'][k2,l2],nc.variables['M2'][k3,l3]] 
 	s2 = [nc.variables['S2'][k1,l1],nc.variables['S2'][k2,l2],nc.variables['S2'][k3,l3]] 
 	n2 = [nc.variables['N2'][k1,l1],nc.variables['N2'][k2,l2],nc.variables['N2'][k3,l3]]
@@ -56,8 +55,8 @@ def func(name):
 
 	#plt.show()
 
-	fig.savefig('Bar_plot_%s' %(name), dpi=300)
+	fig.savefig('/home/eivanov/coawst_data_prrocessing/Temporal/Tides/Bar_plot_%s' %(name), dpi=200)
 
-name=['NN','OW','OWc','TW','TWc']
-for i in range(5):
+name=['OW','OWc','TW','TWc']
+for i in range(4):
 	func(name[i])

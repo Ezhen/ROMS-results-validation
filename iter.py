@@ -24,13 +24,13 @@ def iter1(varr,varo,rr,nc,temptype):
 	if temptype == 'year':
 		for i in range(len(r)):
 			roms_unmasked=rr.variables[varr][i]; roms=np.ma.masked_where(maska==0,roms_unmasked); r[i]=np.sum(roms)/count
-			odys_unmasked=nc.variables[varo][i+731,0,31:62,44:74]; odys=np.ma.masked_where(maska==0,odys_unmasked); o[i]=np.sum(odys)/count
+			odys_unmasked=nc.variables[varo][i+731,0,18:86,22:93]; odys=np.ma.masked_where(maska==0,odys_unmasked); o[i]=np.sum(odys)/count
 		return o,r
 	elif temptype == 'month':
 		for i in range(3*365):
 			t=dt(int(rr.variables['time'][i])).month
 			roms_unmasked=rr.variables[varr][i]; roms=np.ma.masked_where(maska==0,roms_unmasked); r=np.sum(roms)/count
-			odys_unmasked=nc.variables[varo][i+731,0,31:62,44:74]; odys=np.ma.masked_where(maska==0,odys_unmasked); o=np.sum(odys)/count
+			odys_unmasked=nc.variables[varo][i+731,0,18:86,22:93]; odys=np.ma.masked_where(maska==0,odys_unmasked); o=np.sum(odys)/count
 			rar[t-1].append(r)
 			oar[t-1].append(o)
 		return oar,rar
@@ -41,7 +41,7 @@ def iter2(varr,varo,rr,nc,temptype):
 	if temptype == 'year':
 		for i in range(len(r)):
 			roms_unmasked=rr.variables[varr][i]; roms=np.ma.masked_where(maska==0,roms_unmasked); r[i]=np.sum(roms)/count
-			odys_unmasked=nc.variables[varo][i+731,:,31:62,44:74]
+			odys_unmasked=nc.variables[varo][i+731,:,18:86,22:93]
 			for k in range(len(odys_unmasked[0,:,0])):
 				for l in range(len(odys_unmasked[0,0,:])):
 					if type(rr.variables[varr][0,k,l]) != np.ma.core.MaskedConstant:
@@ -49,17 +49,22 @@ def iter2(varr,varo,rr,nc,temptype):
 			odys=np.ma.masked_where(maska==0,odys_2); o[i]=np.sum(odys)/count
 		return o,r
 	elif temptype == 'month':
+		sh = nc.variables[varo][731,:,18:86,22:93]; shh = sh[0]
+		bottom = np.zeros((len(shh),len(shh.T)))
+		for k in range(len(shh)):
+			for l in range(len(shh.T)):
+				if type(rr.variables[varr][0,k,l]) != np.ma.core.MaskedConstant:
+					bottom[k,l] = np.where(sh[:,k,l].mask==False)[0][-1]
 		for i in range(3*365):
 			t=dt(int(rr.variables['time'][i])).month
 			roms_unmasked=rr.variables[varr][i]; roms=np.ma.masked_where(maska==0,roms_unmasked); r[i]=np.sum(roms)/count
-			odys_unmasked=nc.variables[varo][i+731,:,31:62,44:74]
+			odys_unmasked=nc.variables[varo][i+731,:,18:86,22:93]
 			for k in range(len(odys_unmasked[0,:,0])):
 				for l in range(len(odys_unmasked[0,0,:])):
-					if type(rr.variables[varr][0,k,l]) != np.ma.core.MaskedConstant:
-						odys_2[k,l]=odys_unmasked[np.where(odys_unmasked[:,k,l].mask==False)[0][-1],k,l]
+					odys_2[k,l]=odys_unmasked[bottom[k,l],k,l]
 			odys=np.ma.masked_where(maska==0,odys_2); o[i]=np.sum(odys)/count
 			rar[t-1].append(r[i])
-			oar[t-1].append(o[i])
+			oar[t-1].append(o[i]); print i
 		return oar,rar
 
 
@@ -69,14 +74,14 @@ def iter3(varr,varo,rr,nc,temptype,st):
 	if temptype == 'year':
 		for i in range(len(r)):
 			roms_unmasked=rr.variables[varr][i]; roms=np.ma.masked_where(maska==0,roms_unmasked); r[i]=np.sum(roms)/count
-			odys_unmasked=nc.variables[varo][i+731]; odys=np.ma.masked_where(maska==0,odys_unmasked); o[i]=np.sum(odys)/count
+			odys_unmasked=nc.variables[varo][i]; odys=np.ma.masked_where(maska==0,odys_unmasked); o[i]=np.sum(odys)/count
 		return o,r
 	elif temptype == 'month':
 		if st=='temporal':
 			for i in range(3*365):
 				t=dt(int(rr.variables['time'][i])).month
 				roms_unmasked=rr.variables[varr][i]; roms=np.ma.masked_where(maska==0,roms_unmasked); r=np.sum(roms)/count
-				odys_unmasked=nc.variables[varo][i+731]; odys=np.ma.masked_where(maska==0,odys_unmasked); o=np.sum(odys)/count
+				odys_unmasked=nc.variables[varo][i]; odys=np.ma.masked_where(maska==0,odys_unmasked); o=np.sum(odys)/count
 				rar[t-1].append(r)
 				oar[t-1].append(o)
 			return oar,rar
@@ -84,7 +89,7 @@ def iter3(varr,varo,rr,nc,temptype,st):
 			for i in range(3*365):
 				t=dt(int(rr.variables['time'][i])).month
 				rar[t-1].append(rr.variables[varr][i].flatten())
-				oar[t-1].append(nc.variables[varo][i+731].flatten())
+				oar[t-1].append(nc.variables[varo][i].flatten())
 			spar, spao = [[] for i in range(12)],[[] for i in range(12)]
 			for j in range(12):
 				rarj=np.array(rar[j]); oarj=np.array(oar[j])

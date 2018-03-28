@@ -7,7 +7,7 @@ def func_lifewatch(var):
 	elif var == 'salt':
 		num = 15
 	stat,time,lat,lon,var,t,rt,ridx,sstR,sssR=[],[],[],[],[],[],[],[],[],[]
-	for line in open('/home/eivanov/coawst_data_prrocessing/GRID_RECTANGULAR/Validation_VLIZ_Data/Data_Vliz_Temp_Salinity','r').readlines()[1:]:
+	for line in open('/media/sf_Swap-between-windows-linux/DATA_INPUT_ROMS/LifeWatch/Data_Vliz_Temp_Salinity','r').readlines()[1:]:
 		# reading a file
 		stat1 = line.split("\t")[0].split('"')[1]
 		date1 = re.split('-| |:', line.split("\t")[1])

@@ -1,31 +1,32 @@
-import matplotlib.pyplot as plt; import numpy as np; from netCDF4 import Dataset; from datetime import datetime, timedelta; from mpl_toolkits.basemap import Basemap
+import matplotlib.pyplot as plt; import numpy as np; from netCDF4 import Dataset; from datetime import datetime, timedelta; from mpl_toolkits.basemap import Basemap; import pyroms
 import matplotlib as mpl; import os, sys; import calendar;  from ezhen.plotbcz import *; from Func_Temp_Salt_VLIZ_stations import *; mpl.rcParams['legend.numpoints'] = 1; mpl.rcParams['legend.handlelength'] = 0
 #plt.rcParams["font.family"] = 'Times New Roman'; mpl.rcParams['axes.unicode_minus']=False
 
-var='salt' # 'temp','salt'
-varr='sss' # 'sst', 'sss'
-grid_name='OW'
+var='temp' # 'temp','salt'
+varr='sst' # 'sst', 'sss'
+grid_name='TW'
 #mintemp=4; maxtemp=20; division=0.25
-mintemp=27; maxtemp=37; division=0.2
+mintemp=4; maxtemp=21; division=0.2
 
 lv_name = ['120','130','215','230','330','435','700','710','780','ZG02']
 lv_lat = [51.185,51.27083333,51.27666667,51.30833333,51.43333333,51.58066667,51.37666667,51.44083333,51.47116667,51.33333333]
 lv_lon = [2.70116667,2.905,2.61333333,2.85,2.80833333,2.79033333,3.22,3.13866667,3.058,2.5]
 
 lo = lambda x: datetime(2006,1,1,0,0,0) + timedelta(seconds=x)
-folder = os.path.abspath("Animation/TempSalt")
+folder = os.path.abspath("/home/eivanov/coawst_data_prrocessing/Temporal/Former/Animation/Temperature")
 cmap=mpl.cm.jet
 
 clevs = np.arange(mintemp,maxtemp,division)
 xyc='axes points'
 
-ncdata1 = Dataset('Replotting/%s_bulk.nc' %(grid_name), 'r', format='NETCDF4')
-ncdata2 = Dataset('Replotting/%sc_bulk.nc' %(grid_name), 'r', format='NETCDF4')
-t=ncdata1.variables['time'][:]
-sp_p=np.shape(ncdata1.variables[varr][0])
-sp_c=np.shape(ncdata2.variables[varr][0])
+ncdata1 = Dataset('/home/eivanov/coawst_data_prrocessing/Temporal/Former/%s.nc' %(grid_name), 'r', format='NETCDF4')
+ncdata2 = Dataset('/home/eivanov/coawst_data_prrocessing/Temporal/Former/%sc.nc' %(grid_name), 'r', format='NETCDF4')
+t=ncdata1.variables['ocean_time'][:]
+sp_p=np.shape(ncdata1.variables[varr][0,0])
+sp_c=np.shape(ncdata2.variables[varr][0,0])
 
-mask_p=ncdata1.variables['mask_rho'][:]; mask_c=ncdata2.variables['mask_rho'][:]
+dstgrd1 = pyroms.grid.get_ROMS_grid('COARSEST'); dstgrd2 = pyroms.grid.get_ROMS_grid('FINER')
+mask_p=dstgrd1.hgrid.mask_rho; mask_c=dstgrd2.hgrid.mask_rho
 lons_p, lats_p = ncdata1.variables['lon_rho'][:], ncdata1.variables['lat_rho'][:]
 lons_c, lats_c = ncdata2.variables['lon_rho'][:], ncdata2.variables['lat_rho'][:]
 
@@ -38,8 +39,8 @@ roms_c=np.zeros((12,sp_c[0],sp_c[1]))
 day=np.zeros((12))
 
 for i in range(len(t)):
-	roms_p[lo(int(t[i])).month-1] = roms_p[lo(int(t[i])).month-1]+ncdata1.variables[varr][i,:,:]
-	roms_c[lo(int(t[i])).month-1] = roms_c[lo(int(t[i])).month-1]+ncdata2.variables[varr][i,:,:]
+	roms_p[lo(int(t[i])).month-1] = roms_p[lo(int(t[i])).month-1]+ncdata1.variables[varr][i]
+	roms_c[lo(int(t[i])).month-1] = roms_c[lo(int(t[i])).month-1]+ncdata2.variables[varr][i]
 	day[lo(int(t[i])).month-1] = day[lo(int(t[i])).month-1]+1
 
 tt = func_lifewatch(var)

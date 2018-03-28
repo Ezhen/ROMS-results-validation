@@ -1,4 +1,9 @@
-from pylab import *; import matplotlib.gridspec as gridspec; from netCDF4 import Dataset; from scipy import spatial; from functions import *
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.gridspec as gridspec
+from netCDF4 import Dataset
+from scipy import spatial
+from functions import *
 plt.rcParams["font.family"] = 'Times New Roman'; mpl.rcParams['axes.unicode_minus']=False
 
 MP0_lat=51+23/60.+40.04/3600.; MP0_lon=3+2./60.+44.82/3600. # MP0 (Measuring Pile 0, Oostdyckbank)
@@ -56,6 +61,6 @@ def func(name):
 	fig.savefig('Ellipse_plot_M2_one_row_%s' %(name), dpi=200)
 
 
-name=['NN','OW','OWc','TW','TWc']
-for i in range(5):
+name=['OW','OWc','TW','TWc']
+for i in range(4):
 	func(name[i])

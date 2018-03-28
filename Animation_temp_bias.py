@@ -1,15 +1,15 @@
 import matplotlib.pyplot as plt; import numpy as np; from netCDF4 import Dataset; from datetime import datetime, timedelta; from mpl_toolkits.basemap import Basemap
-import matplotlib as mpl; import os, sys; import calendar;  from ezhen.plotbcz import *;  from ezhen.Get_grid import Get_grid_ODYSSEA_Nest
+import matplotlib as mpl; import os, sys; import calendar;  from ezhen.plotbcz import *;  from Get_grid import *
 
 lo = lambda x: datetime(2006,1,1,0,0,0) + timedelta(seconds=x)
-folder = os.path.abspath("Animation/Temperature")
+folder = os.path.abspath("/home/eivanov/coawst_data_prrocessing/Temporal/Former/Animation/Temperature")
 cmap=mpl.cm.bwr
 mintemp=-4; maxtemp=4; division=0.25
 clevs = np.arange(mintemp,maxtemp,division)
-name='/home/eivanov/coawst_data_prrocessing/Validation_FTP_Nested.nc'
+name='/media/sf_Swap-between-windows-linux/DATA_INPUT_ROMS/Mercator/IFREMER-NWS-SST-L4-REP-OBS_FULL_TIME_SERIE_1520866230672.nc'
 xyc='axes points'
 
-ncdata1 = Dataset('Replotting/OW_bulk_sstODYSSEA_PARENT.nc', 'r', format='NETCDF4')
+ncdata1 = Dataset('/home/eivanov/coawst_data_prrocessing/Temporal/Former/OW_sstODYSSEA_PARENT.nc', 'r', format='NETCDF4')
 ncdata2 = Dataset(name, 'r', format='NETCDF4')
 t=ncdata1.variables['time'][:]
 sp=np.shape(ncdata1.variables['sst'][0])
@@ -44,7 +44,7 @@ day=np.zeros((12))
 
 for i in range(len(t)):
 	roms[lo(int(t[i])).month-1] = roms[lo(int(t[i])).month-1]+ncdata1.variables['sst'][i,:,:]
-	od[lo(int(t[i])).month-1] = od[lo(int(t[i])).month-1]+ncdata2.variables['sst'][i+731,:,:]-273.15
+	od[lo(int(t[i])).month-1] = od[lo(int(t[i])).month-1]+ncdata2.variables['analysed_sst'][i,:,:]-273.15
 	day[lo(int(t[i])).month-1] = day[lo(int(t[i])).month-1]+1
 
 for n in range(12):
